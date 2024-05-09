@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28155988173",
+    "project_id": "dementiavirtualmemory",
+    "storage_bucket": "dementiavirtualmemory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28155988173:android:004a6c04b5538405f2c184",
+        "android_client_info": {
+          "package_name": "com.example.dementia_virtual_memory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCquQQsf9jiR-T41JJIDeahd41R_eWXbRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
