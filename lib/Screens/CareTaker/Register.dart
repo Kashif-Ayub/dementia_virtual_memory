@@ -32,9 +32,7 @@ class _RegisterCareTakerState extends State<RegisterCareTaker> {
       setState(() {
         if (pickedFile != null) {
           _image = File(pickedFile.path);
-        } else {
-          print('No image selected.');
-        }
+        } else {}
       });
     }
   }
@@ -46,9 +44,7 @@ class _RegisterCareTakerState extends State<RegisterCareTaker> {
       setState(() {
         if (pickedFile != null) {
           _image = File(pickedFile.path);
-        } else {
-          print('No image selected.');
-        }
+        } else {}
       });
     }
   }
@@ -70,7 +66,6 @@ class _RegisterCareTakerState extends State<RegisterCareTaker> {
       return true;
     } else {
       // Handle permissions not granted
-      print('Camera permission not granted');
       return false;
     }
   }

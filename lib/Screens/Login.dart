@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,6 +21,26 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isLogingin = false;
+  bool _rememberMe = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadRememberMe();
+  }
+
+  Future<void> _loadRememberMe() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _rememberMe = prefs.getBool('remember') ?? false;
+      if (_rememberMe) {
+        _emailController.text = prefs.getString('email') ?? '';
+        _passwordController.text = prefs.getString('password') ?? '';
+      }
+    });
+  }
+
   bool _validateInputs() {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -73,10 +95,26 @@ class _LoginState extends State<Login> {
 
 // Check if userData is not null
         if (data != null) {
+          // print(data);
           // Cast userData to Map<String, dynamic> and assign it to user
           Map<String, dynamic> user = data as Map<String, dynamic>;
+// Convert the map to a JSON string
+          String jsonString = jsonEncode(user);
+
+// Save the JSON string to shared preferences
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('user', jsonString);
+          prefs.setBool('remember', _rememberMe);
+          if (_rememberMe) {
+            prefs.setString('email', _emailController.text);
+            prefs.setString('password', _passwordController.text);
+          } else {
+            prefs.remove('email');
+            prefs.remove('password');
+          }
 
           _showSuccessSnackbar("Welcome  ${user['name']}!");
+
           if (user['role'] == "patient") {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => const PatientDashboard()));
@@ -189,6 +227,23 @@ class _LoginState extends State<Login> {
                       context, 'Email', Icons.email, _emailController),
                   SizedBox(height: 20.h),
                   _buildPasswordField(context, _passwordController),
+                  SizedBox(height: 20.h),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _rememberMe,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            _rememberMe = newValue ?? false;
+                          });
+                        },
+                      ),
+                      Text(
+                        'Remember Me',
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 20.h),
                   ElevatedButton(
                     onPressed: _login,

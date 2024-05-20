@@ -8,6 +8,7 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
      GMSServices.provideAPIKey("AIzaSyDMw--uBZ6WmjkO4sHhJdXy2T3snxDEAKc")
+        SwiftFlutterBackgroundServicePlugin.taskIdentifier = "com.example.myapp.backgroundtask"
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

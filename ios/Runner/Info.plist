@@ -64,5 +64,15 @@
 	<!-- Storage Permissions -->
 	<key>NSFileProviderDomainUsageDescription</key>
 	<string>We need access to your files for some feature.</string>
+
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>We need access to speech recognition for converting speech to text.</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>We need access to your microphone to convert speech to text.</string>
+<key>BGTaskSchedulerPermittedIdentifiers</key>
+<array>
+    <string>dev.flutter.background.refresh</string>
+</array>
+
 </dict>
 </plist>

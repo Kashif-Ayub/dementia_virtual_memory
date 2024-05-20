@@ -48,9 +48,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
       setState(() {
         if (pickedFile != null) {
           _image = File(pickedFile.path);
-        } else {
-          print('No image selected.');
-        }
+        } else {}
       });
     }
   }
@@ -62,9 +60,7 @@ class _RegisterPatientState extends State<RegisterPatient> {
       setState(() {
         if (pickedFile != null) {
           _image = File(pickedFile.path);
-        } else {
-          print('No image selected.');
-        }
+        } else {}
       });
     }
   }
@@ -86,7 +82,6 @@ class _RegisterPatientState extends State<RegisterPatient> {
       return true;
     } else {
       // Handle permissions not granted
-      print('Camera permission not granted');
       return false;
     }
   }
