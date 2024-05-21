@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dementia_virtual_memory/Constants/Constants.dart';
 import 'package:dementia_virtual_memory/Screens/Login.dart';
+import 'package:dementia_virtual_memory/Screens/Patient/DetectDisease.dart';
 import 'package:dementia_virtual_memory/Screens/Patient/Reminders.dart';
 import 'package:dementia_virtual_memory/Services/background_service.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(414, 896));
+    ScreenUtil.init(context, designSize: const Size(414, 896));
     DateFormat dateFormat = DateFormat('d MMM yyyy');
 
     return Scaffold(
@@ -114,12 +115,18 @@ class _PatientDashboardState extends State<PatientDashboard> {
               children: [
                 InkWell(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Reminders()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const Reminders()));
                     },
                     child: _buildCard(Icons.alarm, 'Reminder')),
                 _buildCard(Icons.photo, 'Photos'),
-                _buildCard(Icons.medical_information, 'Detect Disease'),
+                InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const DetectDisease()));
+                    },
+                    child: _buildCard(
+                        Icons.medical_information, 'Detect Disease')),
                 _buildCard(Icons.video_library, 'VIDEOS'),
               ],
             ),

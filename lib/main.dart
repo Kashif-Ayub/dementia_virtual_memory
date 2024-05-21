@@ -72,7 +72,7 @@ class MainApp extends StatelessWidget {
           color: themecolor,
         ),
       ),
-      home: Splash(),
+      home: const Splash(),
     );
   }
 }
