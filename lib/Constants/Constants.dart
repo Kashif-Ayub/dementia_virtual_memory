@@ -1,5 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const themecolor = Color(0xFF744FCD);
 const caretakercolor = Color(0xFF03D3CF);
@@ -81,4 +84,63 @@ DateTime _parseTimeString(String timeString) {
 
   // Return a DateTime object for the future time
   return DateTime(now.year, now.month, now.day, hour, minute);
+}
+
+class MiniGame {
+  final String name;
+  final String url;
+
+  MiniGame({required this.name, required this.url});
+}
+
+List<MiniGame> miniGames = [
+  MiniGame(
+    name: 'Space Invaders',
+    url: 'https://elgoog.im/space-invaders/',
+  ),
+
+  MiniGame(
+    name: 'Snake',
+    url:
+        'https://www.google.com/search?q=snake+game&rlz=1C1CHBF_enIN830IN830&oq=snake+game&aqs=chrome..69i57j0l5.183j0j7&sourceid=chrome&ie=UTF-8',
+  ),
+
+  MiniGame(
+    name: 'Cricket',
+    url: 'https://www.google.com/logos/2017/cricket17/cricket17.html',
+  ),
+  MiniGame(
+    name: 'Pony Express',
+    url: 'https://www.google.com/logos/2015/ponyexpress/ponyexpress15.html',
+  ),
+
+  // Add more mini games here as needed
+];
+
+// // SMS SEND FUNCTION
+
+String? encodeQueryParameters(Map<String, String> params) {
+  return params.entries
+      .map((MapEntry<String, String> e) =>
+          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+      .join('&');
+}
+
+Future<void> sendSMS(String message, String recipient) async {
+  final Uri smsLaunchUri = Uri(
+    scheme: 'sms',
+    path: recipient,
+    query: encodeQueryParameters(<String, String>{'body': message}),
+  );
+
+  try {
+    bool launched = await launchUrl(smsLaunchUri);
+    if (!launched) {
+      // Handle the failure case, e.g., show a message to the user or fallback behavior
+      print('Could not launch SMS URI');
+    }
+  } catch (e) {
+    // Handle the exception
+    print('Error occurred: $e');
+  }
 }

@@ -20,6 +20,14 @@
         <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+<uses-permission android:name="android.permission.RECEIVE_SMS"/>
+<uses-permission android:name="android.permission.READ_SMS"/>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>
+    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+
 
     <!-- Queries -->
     <queries>
@@ -30,12 +38,33 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+         <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="sms" />
+  </intent>
     </queries>
+
 
     <application
         android:label="dementia_virtual_memory"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+         android:usesCleartextTraffic="true"
+           android:enableOnBackInvokedCallback="true"
+        >
+        <!-- Service Configuration -->
+        <service
+           android:name="id.flutter.flutter_background_service.BackgroundService"
+           android:foregroundServiceType="remoteMessaging"
+           >  </service>
+        <service
+            android:name=".BackgroundService"
+            android:exported="true"
+            android:permission="android.permission.FOREGROUND_SERVICE">
+            <intent-filter>
+                <action android:name="io.flutter.embedding.android.FlutterService" />
+            </intent-filter>
+        </service>
         <!-- <service
     android:name="id.flutter.flutter_background_service.BackgroundService"
     android:permission="android.permission.BIND_JOB_SERVICE"
@@ -47,6 +76,7 @@
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDMw--uBZ6WmjkO4sHhJdXy2T3snxDEAKc"/>
 
         <!-- Main Activity -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -12,6 +12,7 @@ dependencies:
   avatar_glow: ^3.0.1
   awesome_notifications: ^0.9.3+1
   cloud_firestore: ^4.17.3
+  firebase_app_check: ^0.2.2+7
   firebase_auth: ^4.19.5
   firebase_core: ^2.31.0
   firebase_storage: ^11.7.5
@@ -29,9 +30,13 @@ dependencies:
   lottie: ^3.1.0
   permission_handler: ^11.3.1
   shared_preferences: ^2.2.3
+  shimmer: ^3.0.0
   slider_button: ^2.1.0
   speech_to_text: ^6.6.0
-
+  url_launcher: ^6.3.0
+  video_player: ^2.8.6
+  webview_flutter: ^4.8.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

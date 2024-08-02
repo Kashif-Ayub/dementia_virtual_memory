@@ -69,6 +69,7 @@ void onStart(ServiceInstance service) async {
           icon: 'ic_bg_service_small', ongoing: false, autoCancel: true),
     ),
   );
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   String reminderalreadySentid = "";
   Timer.periodic(const Duration(seconds: 5), (timer) async {

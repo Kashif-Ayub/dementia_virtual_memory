@@ -7,11 +7,38 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+
+Future<void> initializeAppCheck() async {
+  int retryCount = 0;
+  bool initialized = false;
+
+  while (!initialized && retryCount < 3) {
+    try {
+      await FirebaseAppCheck.instance.activate(
+        androidProvider: AndroidProvider.playIntegrity,
+      );
+      initialized = true;
+    } catch (e) {
+      retryCount++;
+      await Future.delayed(Duration(seconds: 2)); // Exponential backoff
+    }
+  }
+
+  if (!initialized) {
+    print('Failed to initialize App Check after 3 attempts');
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
+  await initializeAppCheck();
+  // await FirebaseAppCheck.instance.activate(
+  //   webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+  //   androidProvider: AndroidProvider.playIntegrity,
+  //   // appleProvider: AppleProvider.appAttest,
+  // );
   await AwesomeNotifications().initialize(null, [
     NotificationChannel(
         channelGroupKey: "basic_channel_group",
